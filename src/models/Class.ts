@@ -1,8 +1,11 @@
 import { BelongsToMany, Column, Model, Table, DataType as dt } from "sequelize-typescript";
 import User from "./User";
+import ClassUser from "./ClassUser";
+import Subject from "./Subject";
+import ClassSubject from "./ClassSubject";
 
 @Table({
-  tableName: 'class'
+  tableName: 'classes'
 })
 export default class Class extends Model {
   @Column({
@@ -14,10 +17,18 @@ export default class Class extends Model {
   
   @Column({
     type: dt.STRING,
-    allowNull: false,
+    allowNull: false
   }) name!: string;
 
   @BelongsToMany(() => User, { 
-    through: 'Class_User' 
+    through: {
+      model: () => ClassUser
+    }
   }) users!: User[];
+
+  @BelongsToMany(() => Subject, {
+    through: {
+      model: () => ClassSubject
+    }
+  }) subjects!: Subject[];
 }

@@ -1,8 +1,10 @@
-import { BelongsToMany, Column, Model, Table, DataType as dt } from "sequelize-typescript";
+import { BeforeCreate, BeforeUpdate, BelongsToMany, Column, Model, Table, DataType as dt } from "sequelize-typescript";
 import Class from "./Class";
+import ClassUser from "./ClassUser";
+import { hash, compare } from "bcrypt";
 
 @Table({
-  tableName: 'user'
+  tableName: 'users'
 })
 export default class User extends Model {
   @Column({
@@ -14,7 +16,7 @@ export default class User extends Model {
   
   @Column({
     type: dt.STRING,
-    allowNull: false,
+    allowNull: false
   }) name!: string;
 
   @Column({
@@ -32,7 +34,27 @@ export default class User extends Model {
     defaultValue: 2
   }) permission_level!: number;
 
+  @Column({
+    type: dt.STRING,
+    allowNull: false
+  }) password!: string;
+
   @BelongsToMany(() => Class, {
-    through: 'Class_User' 
+    through: {
+      model: () => ClassUser
+    }
   }) classes!: Class[];
+
+  @BeforeCreate
+  @BeforeUpdate
+  static async encryptPassword(entity: User) {
+    if(entity.changed('password')) {
+      const passwordHash = await hash(entity.password, 8);
+      entity.password = passwordHash;
+    }
+  }
+
+  async comparePassword(password: string) {
+    return await compare(password, this.password);
+  }
 }
