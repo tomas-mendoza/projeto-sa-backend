@@ -1,0 +1,16 @@
+services:
+  api:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/usr/share/api-classroom:delegated
+  database:
+    image: mysql
+    tty: true
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=classroom
