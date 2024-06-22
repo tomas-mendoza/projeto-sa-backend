@@ -1,7 +1,7 @@
 import User from "../models/User";
 import { BaseRepository } from "./BaseRepository";
 
-export default class UserRepository extends BaseRepository<User> {
+class UserRepository extends BaseRepository<User> {
   async create(entity: User): Promise<User> {
     return await User.create({
       name: entity.name,
@@ -22,13 +22,21 @@ export default class UserRepository extends BaseRepository<User> {
     oldUser.name = updatedEntity.name;
     oldUser.cpf = updatedEntity.cpf;
     oldUser.birthdate = updatedEntity.birthdate;
-    oldUser.password = updatedEntity.password;
+    
+    if(updatedEntity.password) {
+      oldUser.password = updatedEntity.password;
+    }
 
     return await oldUser.save();
   }
 
-  async delete(id: number): Promise<void> {
-    const oldUser = await User.findByPk(id);
+  async delete(id: number, permission_level: number = 2): Promise<void> {
+    const oldUser = await User.findOne({
+      where: {
+        id,
+        permission_level
+      }
+    });
 
     if(!oldUser) {
       throw new Error('User not found');
@@ -37,12 +45,21 @@ export default class UserRepository extends BaseRepository<User> {
     await oldUser.destroy();
   }
 
-  async find(): Promise<User[]> {
-    return await User.findAll();    
+  async find(permission_level: number = 2): Promise<User[]> {
+    return await User.findAll({
+      where: {
+        permission_level
+      }
+    });    
   }
 
-  async findOne(id: number): Promise<User> {
-    const user = await User.findByPk(id);
+  async findOne(id: number, permission_level: number = 2): Promise<User> {
+    const user = await User.findOne({
+      where: {
+        id,
+        permission_level
+      }
+    });
     
     if(!user) {
       throw new Error('User not found');
@@ -51,3 +68,5 @@ export default class UserRepository extends BaseRepository<User> {
     return user;
   }
 }
+
+export default new UserRepository();

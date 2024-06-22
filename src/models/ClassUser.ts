@@ -13,11 +13,4 @@ export default class ClassUser extends Model {
   @ForeignKey(
     () => Class
   ) classId!: number;
-  // @HasOne(
-  //   () => User
-  // ) users!: User[];
-
-  // @HasOne(
-  //   () => Class
-  // ) classes!: Class[];
 }

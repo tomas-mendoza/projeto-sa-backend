@@ -3,24 +3,24 @@ import User from "../models/User";
 import UserRepository from "../repository/UserRepository";
 import errorHandler from "../utils/errorHandler";
 
-class AdminController {
+class StudentController {
   async create(req: Request, res: Response) {
     try {
       const { name, cpf, birthdate, password } = req.body;
 
-      const newAdmin = new User({
+      const newStudent = new User({
         name,
         cpf,
         birthdate,
         password,
-        permission_level: 0
+        permission_level: 2
       });
 
-      const createdAdmin = await UserRepository.create(newAdmin);
+      const createdStudent = await UserRepository.create(newStudent);
 
       return res.status(200).json({
-        message: 'Admin has been created successfully',
-        data: createdAdmin
+        message: 'Student has been created successfully',
+        data: createdStudent
       });
     } catch(err: unknown) {
       return res.status(500).json({
@@ -35,13 +35,13 @@ class AdminController {
       const { id } = req.params;
       const { name, cpf, birthdate, password } = req.body;
 
-      const updatedAdmin = await UserRepository.update(parseInt(id), new User({
+      const updatedStudent = await UserRepository.update(parseInt(id), new User({
         name, cpf, birthdate, password 
       }));
       
       return res.status(200).json({
-        message: 'This admin has been updated successfully',
-        data: updatedAdmin
+        message: 'This student has been updated successfully',
+        data: updatedStudent
       });
     } catch(err: unknown) {
       return res.status(500).json({
@@ -53,10 +53,10 @@ class AdminController {
 
   async delete(req: Request, res: Response) {
     try {
-      await UserRepository.delete(parseInt(req.params.id), 0);
+      await UserRepository.delete(parseInt(req.params.id), 2);
 
       return res.status(200).json({
-        message: 'This admin has been deleted successfully'
+        message: 'This student has been deleted successfully'
       });
     } catch(err: unknown) {
       return res.status(500).json({
@@ -68,11 +68,11 @@ class AdminController {
 
   async findAll(req: Request, res: Response) {
     try {
-      const allAdmin = await UserRepository.find(0);
+      const allStudent = await UserRepository.find(2);
 
       return res.status(200).json({
-        message: 'Admin data has been fetched successfully',
-        data: allAdmin
+        message: 'Student data has been fetched successfully',
+        data: allStudent
       });
     } catch(err: unknown) {
       return res.status(500).json({
@@ -84,11 +84,11 @@ class AdminController {
 
   async findOne(req: Request, res: Response) {
     try {
-      const admin = await UserRepository.findOne(parseInt(req.params.id), 0);
+      const student = await UserRepository.findOne(parseInt(req.params.id), 2);
 
       return res.status(200).json({
-        message: 'Admin data has been fetched successfully',
-        data: admin
+        message: 'Student data has been fetched successfully',
+        data: student
       });
     } catch(err: unknown) {
       return res.status(500).json({
@@ -99,4 +99,4 @@ class AdminController {
   }
 }
 
-export default new AdminController();
+export default new StudentController();

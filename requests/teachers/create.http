@@ -1,0 +1,10 @@
+POST http://localhost:8000/teachers/
+Content-Type: application/json
+
+{
+  "name": "Teste 2",
+  "cpf": "12345678911",
+  "birthdate": "2024-06-21T23:03:06.851Z",
+  "password": "senha"
+}
+

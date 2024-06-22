@@ -24,7 +24,21 @@ export default class Database {
       console.log('The database connection has been estabilished successfully!');
       if(this.connection) {
         this.connection.sync().then(() => {
-          console.log('The database has been synced');
+          User.findOne({ where: {
+            name: 'admin'
+          }}).then((admin) => {
+            if(!admin) {
+              User.create({
+                name: 'admin',
+                password: 'admin',
+                birthdate: new Date().toISOString(),
+                cpf: '11111111111',
+                permission_level: 0
+              }).then(() => {
+                console.log('The database has been synced');
+              });
+            }
+          });
         });
       }
     });

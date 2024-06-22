@@ -1,25 +1,22 @@
 import Express, { Application } from "express";
 import Database from "./config/database";
+import AdminRouter from "./routes/AdminRouter";
+import TeacherRouter from "./routes/TeacherRouter";
+import StudentRouter from "./routes/StudentRouter";
 
-// const app = Express();
-
-// app.use(Express.json());
-
-// app.get('/', (req, res) => {
-//   return res.json({
-//     message: 'Ok'
-//   });
-// });
-
-// export default app;
 export default class App {
   public app: Application;
   public db: Database | undefined;
 
   constructor() {
     this.app = Express();
+    this.plugins();
     this.routes();
     this.database();
+  }
+
+  protected plugins() {
+    this.app.use(Express.json());
   }
 
   protected routes() {
@@ -28,6 +25,9 @@ export default class App {
         status: 'ok'
       });
     });
+    this.app.use('/admins', AdminRouter);
+    this.app.use('/teachers', TeacherRouter);
+    this.app.use('/students', StudentRouter)
   }
 
   protected database() {

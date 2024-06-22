@@ -1,0 +1,10 @@
+PATCH http://localhost:8000/admins/7
+Content-Type: application/json
+
+{
+  "name": "Teste 2",
+  "cpf": "12345678912",
+  "birthdate": "2024-06-22T23:03:06.851Z",
+  "password": ""
+}
+
