@@ -1,7 +1,7 @@
 import Subject from "../models/Subject";
 import { BaseRepository } from "./BaseRepository";
 
-export default class SubjectRepository extends BaseRepository<Subject> {
+class SubjectRepository extends BaseRepository<Subject> {
   async create(entity: Subject): Promise<Subject> {
     return await Subject.create({
       name: entity.name
@@ -44,3 +44,5 @@ export default class SubjectRepository extends BaseRepository<Subject> {
     return subject;
   }
 }
+
+export default new SubjectRepository();

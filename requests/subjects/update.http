@@ -1,0 +1,7 @@
+PATCH http://localhost:8000/subjects/1
+Content-Type: application/json
+
+{
+  "name": "Matemática aplicada"
+}
+
