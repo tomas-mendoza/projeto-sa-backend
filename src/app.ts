@@ -1,8 +1,10 @@
 import Express, { Application } from "express";
 import Database from "./config/database";
+import CookieParser from 'cookie-parser';
 import AdminRouter from "./routes/AdminRouter";
 import TeacherRouter from "./routes/TeacherRouter";
 import StudentRouter from "./routes/StudentRouter";
+import TokenRouter from "./routes/TokenRouter";
 
 export default class App {
   public app: Application;
@@ -17,6 +19,7 @@ export default class App {
 
   protected plugins() {
     this.app.use(Express.json());
+    this.app.use(CookieParser());
   }
 
   protected routes() {
@@ -27,7 +30,8 @@ export default class App {
     });
     this.app.use('/admins', AdminRouter);
     this.app.use('/teachers', TeacherRouter);
-    this.app.use('/students', StudentRouter)
+    this.app.use('/students', StudentRouter);
+    this.app.use('/auth', TokenRouter);
   }
 
   protected database() {

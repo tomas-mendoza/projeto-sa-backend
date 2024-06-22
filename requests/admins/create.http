@@ -1,5 +1,6 @@
 POST http://localhost:8000/admins/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY3BmIjoiMTExMTExMTExMTEiLCJwZXJtaXNzaW9uX2xldmVsIjowLCJpYXQiOjE3MTkwNjU2MDUsImV4cCI6MTcyMDM2MTYwNX0._OoYqjX4-5kkCuyRbtDji2ATH8E3g_gH31dDxWXRUtU
 
 {
   "name": "Teste",
