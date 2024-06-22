@@ -1,0 +1,7 @@
+POST http://localhost:8000/classes/add/subject
+Content-Type: application/json
+
+{
+  "classId": 1,
+  "subjectId": 1
+}

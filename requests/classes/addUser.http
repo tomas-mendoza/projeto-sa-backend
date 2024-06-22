@@ -1,0 +1,7 @@
+POST http://localhost:8000/classes/add/user
+Content-Type: application/json
+
+{
+  "classId": 1,
+  "userId": 1
+}

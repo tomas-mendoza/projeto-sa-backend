@@ -93,6 +93,74 @@ class ClassController {
       });
     }
   }
+
+  async addUser(req: Request, res: Response) {
+    try {
+      const { classId, userId } = req.body;
+
+      await ClassRepository.addUser(classId, userId);
+
+      return res.status(200).json({
+        message: 'This user has been added to this class successfully'
+      });
+    } catch(err: unknown) {
+      return res.status(500).json({
+        status: 'Internal server error',
+        message: errorHandler(err)
+      });
+    }
+  }
+
+  async removeUser(req: Request, res: Response) {
+    try {
+      const { classId, userId } = req.body;
+
+      await ClassRepository.removeUser(classId, userId);
+
+      return res.status(200).json({
+        message: 'This user has been removed to this class successfully'
+      });
+    } catch(err: unknown) {
+      return res.status(500).json({
+        status: 'Internal server error',
+        message: errorHandler(err)
+      });
+    }
+  }
+
+  async addSubject(req: Request, res: Response) {
+    try {
+      const { classId, subjectId } = req.body;
+
+      await ClassRepository.addSubject(classId, subjectId);
+
+      return res.status(200).json({
+        message: 'This subject has been added to this class successfully'
+      });
+    } catch(err: unknown) {
+      return res.status(500).json({
+        status: 'Internal server error',
+        message: errorHandler(err)
+      });
+    }
+  }
+
+  async removeSubject(req: Request, res: Response) {
+    try {
+      const { classId, subjectId } = req.body;
+
+      await ClassRepository.removeSubject(classId, subjectId);
+
+      return res.status(200).json({
+        message: 'This subject has been removed to this class successfully'
+      });
+    } catch(err: unknown) {
+      return res.status(500).json({
+        status: 'Internal server error',
+        message: errorHandler(err)
+      });
+    }
+  }
 }
 
 export default new ClassController();
