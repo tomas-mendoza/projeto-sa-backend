@@ -1,0 +1,7 @@
+PATCH http://localhost:8000/classes/2
+Content-Type: application/json
+
+{
+  "name": "Sala atualizada"
+}
+

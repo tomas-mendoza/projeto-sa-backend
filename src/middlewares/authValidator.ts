@@ -16,7 +16,7 @@ const authValidator = (permission_level: number = 2) =>
 
       console.log(data.permission_level);
 
-      if(data.permission_level !== permission_level) {
+      if(data.permission_level > permission_level) {
         throw new Error('Not authorized');
       }
 

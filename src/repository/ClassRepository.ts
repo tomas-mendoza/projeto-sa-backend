@@ -1,7 +1,7 @@
 import Class from "../models/Class";
 import { BaseRepository } from "./BaseRepository";
 
-export default class ClassRepository extends BaseRepository<Class> {
+class ClassRepository extends BaseRepository<Class> {
   async create(entity: Class): Promise<Class> {
     return await Class.create({
       name: entity.name,
@@ -48,3 +48,5 @@ export default class ClassRepository extends BaseRepository<Class> {
     return classToFind;
   }
 }
+
+export default new ClassRepository();

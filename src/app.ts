@@ -5,6 +5,7 @@ import AdminRouter from "./routes/AdminRouter";
 import TeacherRouter from "./routes/TeacherRouter";
 import StudentRouter from "./routes/StudentRouter";
 import TokenRouter from "./routes/TokenRouter";
+import ClassRouter from "./routes/ClassRouter";
 
 export default class App {
   public app: Application;
@@ -31,6 +32,7 @@ export default class App {
     this.app.use('/admins', AdminRouter);
     this.app.use('/teachers', TeacherRouter);
     this.app.use('/students', StudentRouter);
+    this.app.use('/classes', ClassRouter);
     this.app.use('/auth', TokenRouter);
   }
 
