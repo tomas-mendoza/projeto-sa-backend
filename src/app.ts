@@ -1,12 +1,19 @@
 import Express, { Application } from "express";
 import Database from "./config/database";
 import CookieParser from 'cookie-parser';
+import cors from 'cors';
 import AdminRouter from "./routes/AdminRouter";
 import TeacherRouter from "./routes/TeacherRouter";
 import StudentRouter from "./routes/StudentRouter";
 import TokenRouter from "./routes/TokenRouter";
 import ClassRouter from "./routes/ClassRouter";
 import SubjectRouter from "./routes/SubjectRouter";
+import env from "./env";
+
+const options: cors.CorsOptions = {
+  origin: [env.FRONTEND_URL],
+  credentials: true
+};
 
 export default class App {
   public app: Application;
@@ -22,6 +29,7 @@ export default class App {
   protected plugins() {
     this.app.use(Express.json());
     this.app.use(CookieParser());
+    this.app.use(cors(options));
   }
 
   protected routes() {

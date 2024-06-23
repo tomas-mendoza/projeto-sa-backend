@@ -9,7 +9,8 @@ const envSchema = z.object({
   DATABASE_USER: z.string(),
   DATABASE_PASSWORD: z.string(),
   DATABASE_HOST: z.string(),
-  SECRET_KEY: z.string()
+  SECRET_KEY: z.string(),
+  FRONTEND_URL: z.string().url()
 });
 
 export default envSchema.parse(process.env);
