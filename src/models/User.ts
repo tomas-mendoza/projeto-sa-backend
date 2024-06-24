@@ -21,7 +21,8 @@ export default class User extends Model {
 
   @Column({
     type: dt.STRING(11),
-    allowNull: false
+    allowNull: false,
+    unique: true
   }) cpf!: string;
 
   @Column({
