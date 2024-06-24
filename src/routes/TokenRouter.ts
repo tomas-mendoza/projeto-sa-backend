@@ -7,6 +7,7 @@ class TokenRouter extends BaseRouter {
   routes() {
     this.router.post('/', schemaValidator(createTokenSchema),TokenController.create);
     this.router.delete('/', TokenController.delete);
+    this.router.get('/', TokenController.validateToken);
   }
 }
 

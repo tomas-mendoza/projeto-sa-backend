@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import errorHandler from "../utils/errorHandler";
 import User from "../models/User";
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import env from "../env";
 
 class TokenController {
@@ -43,6 +43,31 @@ class TokenController {
         status: 'Internal server error',
         message: errorHandler(err)
       });
+    }
+  }
+
+  async validateToken(req: Request, res: Response) {
+    try {
+      if(!req.headers.authorization && !req.cookies.auth) {
+        throw new Error('Authorization can not be null!');
+      }
+  
+      const token = req.headers.authorization ? req.headers.authorization.split(' ')[1] : req.cookies.auth;
+      
+      const data = jwt.verify(token, env.SECRET_KEY) as JwtPayload;
+
+      if(!data) {
+        throw new Error('Not authorized');
+      }
+
+      return res.status(200).json({
+        status: 'Authorized'
+      });
+    } catch(err: unknown) {
+      return res.status(500).json({
+        status: 'Internal server error',
+        message: errorHandler(err)
+      })
     }
   }
   

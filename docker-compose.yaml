@@ -6,11 +6,18 @@ services:
     tty: true
     ports:
       - 8000:8000
+    depends_on:
+      database:
+        condition: service_healthy
     volumes:
       - ./:/usr/share/api-classroom:delegated
   database:
     image: mysql
     tty: true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3306"]
+      interval: 15s
+      timeout: 10s
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=classroom
