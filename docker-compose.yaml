@@ -10,7 +10,7 @@ services:
       database:
         condition: service_healthy
     volumes:
-      - ./:/usr/share/api-classroom:delegated
+      - ./src:/usr/share/api-classroom/src
   database:
     image: mysql
     tty: true
