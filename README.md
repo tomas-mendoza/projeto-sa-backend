@@ -12,3 +12,6 @@ DATABASE_HOST=
 SECRET_KEY=
 FRONTEND_URL=
 ```
+
+login: 11111111111
+senha: admin
